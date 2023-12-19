@@ -1,0 +1,6 @@
+{
+ 
+  "usingComponents": {
+    "ui-popover" : "/mp-cu/colorUI/components/ui-modal/ui-modal"
+  }
+}

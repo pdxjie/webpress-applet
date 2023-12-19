@@ -1,0 +1,89 @@
+<import src="../../templates/copyright.wxml" />
+<import src="../../templates/login-popup.wxml" />
+<ui-sys tabbar>
+  <ui-navbar back="{{false}}" bg="ui-BG-Main"></ui-navbar>
+  <!-- 用户信息 -->
+  <view class="userinfo ui-BG-Main"></view>
+  <view class="info_box ui-BG-card ui-BG">
+    <view wx:if="{{ openid !== '' }}">
+      <view class="info_avatar">
+        <image mode="aspectFill" src="{{userInfo.avatar}}" />
+      </view>
+      <view class="info_data">
+        <view class="info_user">
+          <view class="info_name ui-TC" wx:if="{{ openid !== '' }}">
+            {{userInfo.nickName}}
+          </view>
+          <view class="info_name ui-TC" wx:if="{{ openid === '' }}" bindtap="bindgetuserinfo">点此登录</view>
+          <view class="info_scan"></view>
+        </view>
+        <view class="info_uid" style="display: flex;align-items: center;justify-content: space-between;">
+          <view>
+            <ui-tag bg="bg-red-thin" style="display: flex;align-items: center;" info="{{ role }}" />
+            <text wx:if="{{role === ''}}">登录后查看角色</text>
+          </view>
+          <!-- info_right -->
+          <view class="info_right">
+            退出登录
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:else style="display: flex;justify-content: center;">
+      <button bindtap="bindgetuserinfo" class="ui-btn bg-blue-thin round xl un-login">
+        <text>{{ loading ? '' : '登录' }}</text>
+        <text wx:if="{{ loading }}" class="_icon-loader icon-spin" />
+      </button>
+    </view>
+  </view>
+  <!-- 浏览记录 -->
+  <view class="  ui-BG-card ui-BG" wx:if="{{openid !=''}}">
+    <ui-title title="我的记录" depth="3">
+      <text slot="icon" class="ui-TC-Main cicon-slack-square" />
+    </ui-title>
+    <view class="ui-grid ui-cols-4  ">
+      <block wx:key="id" wx:for="{{list}}">
+        <navigator class="ui-item " url="{{item.path}}">
+          <view>
+            <text class="{{item.icon}} text-xxl m-2" style="color:{{item.color}}"></text>
+          </view>
+          <text class="ui-TC text-df">{{item.name}}</text>
+        </navigator>
+      </block>
+    </view>
+  </view>
+  <!-- 服务列表 -->
+  <view class="ui-BG-card ui-BG">
+    <ui-menu ui=" radius">
+      <block wx:if="{{openid !=''}}">
+        <ui-menu-item arrow title="修改昵称" icon="cicon-settings" isAction data-url="/pages/about/about" bindtap="showModal" data-key='drawer'></ui-menu-item>
+      </block>
+      <ui-menu-item arrow title="关于站长" icon="cicon-weixin" isAction data-value="{{wechat}}" bindtap="tapCopy">
+        <text slot="action" class="text-sm ui-TC-3 m-1">{{wechat}}</text>
+      </ui-menu-item>
+      <view style="position: relative;">
+        <ui-menu-item arrow title="意见反馈" icon="cicon-creative" data-url="/pages/about/about" bindtap="tapToUrl" />
+        <button class="ui-btn kefubtn  " open-type="feedback"></button>
+      </view>
+      <ui-menu-item arrow title="定制主题" icon="cicon-clothes" data-url="/pages/theme/theme" bindtap="tapToUrl" />
+    </ui-menu>
+  </view>
+  <!-- 版权信息 -->
+  <view class="copyright">
+    <template is="tempCopyright" data="{{webSiteName:webSiteName}}" />
+  </view>
+  <ui-modal show="{{target === 'drawer'}}" mask="40" align="bottom">
+    <view class="pop-edit">
+      <view class="pop-header">
+        <view class="title">修改昵称</view>
+      </view>
+      <input class="pop-input" model:value="{{nickName}}" type="nickname" placeholder="请输入昵称" />
+      <view class="pop-footer">
+        <view class="btn-cancel" bindtap="onClose">取消</view>
+        <view class="btn-save" bindtap="onSave">保存</view>
+      </view>
+    </view>
+  </ui-modal>
+  <!-- 隐私授权弹窗 -->
+  <privacy />
+</ui-sys>

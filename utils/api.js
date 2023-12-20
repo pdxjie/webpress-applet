@@ -45,7 +45,6 @@ module.exports = {
   getStickyPosts: function () {
     var url = HOST_URI_WATCH_LIFE_JSON + 'posts?sticky=true&per_page=5&page=1';
     return url;
-
   },
  
   

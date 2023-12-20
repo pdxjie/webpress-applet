@@ -21,10 +21,7 @@
       <!-- 搜索 -->
       <form catchsubmit="formSubmit" catchreset="formReset" id="search-form">
         <view class="ui-search-bar  ">
-          <!-- <view class="ui-search-action">
-            <ui-avatar slot="left" ui="round" src="/images/gravatar.png" />
-          </view> -->
-          <view class="ui-search-form   round">
+          <view class="ui-search-form round">
             <text class="ui-search-icon _icon-search" />
             <input class="ui-search-input ui-search-text-left" value="" id="search-input" name="input" confirm-type="search" placeholder="搜索你感兴趣的内容..." bindconfirm="formSubmit" />
             <text class="ui-search-close {{emptyIcon}}" wx:if="{{searchVal && isEmpty}}" catchtap="onTapEmpty" />
@@ -61,15 +58,13 @@
 
   <!-- 推荐文章 -->
   <view class=" ui-BG-card ui-BG" wx:if="{{postsstickyList.length > 0}}">
-    <ui-title title="推荐文章" desc="汇聚精彩文章" depth="3">
+    <ui-title title="推荐文章" desc="最新技术分享" depth="3">
       <text slot="icon" class="ui-TC-Main cicon-whatshot" />
     </ui-title>
-
-
     <swiper class="sticky-list" autoplay="true" interval="5000" duration="400" circular="true" display-multiple-items="2" vertical="true">
       <swiper-item class="sticky-list-item" wx:for="{{postsstickyList}}" wx:key="id" id="{{item.id}}" bindtap="redictDetail">
         <view class="sticky-list-item-title ui-TC text-df">
-          <text class="dot ui-BG-Main"></text> {{item.title.rendered}}
+          <text class="dot ui-BG-Main"></text> {{item.title}}
         </view>
       </swiper-item>
     </swiper>
